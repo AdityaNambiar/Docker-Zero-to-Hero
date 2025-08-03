@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu as baseBuild
 
 WORKDIR /app
 
@@ -12,6 +12,10 @@ SHELL ["/bin/bash", "-c"]
 RUN python3 -m venv venv1 && \
 source venv1/bin/activate && \
 pip install --no-cache-dir -r requirements.txt
+
+FROM gcr.io/distroless/python3-debian12
+
+COPY --from=baseBuild /app /app
 
 EXPOSE 8000
 
