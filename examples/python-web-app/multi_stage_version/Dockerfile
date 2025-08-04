@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip python3-venv
 RUN python3 -m venv /app/venv1
 
 # Use a second stage to create a venv with django and other dependencies
+## Reference: https://github.com/GoogleContainerTools/distroless/blob/main/examples/python3-requirements/Dockerfile
 FROM basebuild AS buildvenv
 COPY requirements.txt /app/requirements.txt
 RUN /app/venv1/bin/pip install --no-cache-dir -r /app/requirements.txt
